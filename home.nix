@@ -9,6 +9,8 @@
   # Packages to install
   home.packages = [
     # pkgs is the set of all packages in the default home.nix implementation
+    pkgs.wget
+    pkgs.curl
     pkgs.fish
     pkgs.git
     pkgs.tmux
