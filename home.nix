@@ -9,6 +9,7 @@
   # Packages to install
   home.packages = [
     # pkgs is the set of all packages in the default home.nix implementation
+    pkgs.neofetch
     pkgs.wget
     pkgs.curl
     pkgs.fish
@@ -41,9 +42,41 @@
     pkgs.xh
     pkgs.zoxide
     pkgs.dog
+    pkgs.nix-prefetch-github
   ];
 
-  programs.fish.enable = true;
+  #home.stateVersion = "22.11";
+  #programs.home-manager.enable = true;
+
+  programs.fish = {
+    enable = true;
+    shellInit =
+    ''
+    .  /home/ekorudiawan/.nix-profile/etc/profile.d/nix.fish
+    #set -ga OMF_PATH ~/.local/share/omf 
+    #set -ga OMF_CONFIG ~/.config/omf
+    '';
+    plugins = [
+      {
+	name = "foreign-env";
+	src = pkgs.fetchFromGitHub {
+	  owner = "oh-my-fish";
+	  repo = "plugin-foreign-env";
+	  rev = "dddd9213272a0ab848d474d0cbde12ad034e65bc";
+	  sha256 = "00xqlyl3lffc5l0viin1nyp819wf81fncqyz87jx8ljjdhilmgbs";
+	};
+      }
+      #{
+      #  name = "oh-my-fish";
+      #  src = pkgs.fetchFromGitHub {
+      #	  owner = "oh-my-fish";
+      #	  repo = "oh-my-fish";
+      #	  rev = "90f875e02dbb63a7e12430ceb034206bea278c28";
+      #    sha256 = "1h+5Lf9hwAepCKAmHFTkTBahQjRMB4UDdNlVRQWxUZc=";
+      #	};
+      #}
+    ];
+  };
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
