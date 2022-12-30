@@ -3,8 +3,8 @@
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
-  home.username = "administrator";
-  home.homeDirectory = "/home/administrator";
+  home.username = "ekorudiawan";
+  home.homeDirectory = "/home/ekorudiawan";
 
   # Packages to install
   home.packages = [
@@ -45,37 +45,52 @@
     pkgs.nix-prefetch-github
   ];
 
-  #home.stateVersion = "22.11";
-  #programs.home-manager.enable = true;
-
   programs.fish = {
     enable = true;
     shellInit =
     ''
-    .  /home/ekorudiawan/.nix-profile/etc/profile.d/nix.fish
-    #set -ga OMF_PATH ~/.local/share/omf 
-    #set -ga OMF_CONFIG ~/.config/omf
+    #.  /home/ekorudiawan/.nix-profile/etc/profile.d/nix.fish
     '';
+		shellAliases = {
+			# rm = "rm -i";
+			# cp = "cp -i";
+			# mv = "mv -i";
+			# mkdir = "mkdir -p";
+			cat = "bat";
+			ls = "exa";
+			vim = "nvim";
+			ping = "gping";
+		};
     plugins = [
+			{
+				name = "nix-env";
+				src = pkgs.fetchFromGitHub {
+					owner = "lilyball";
+					repo = "nix-env.fish";
+					rev = "00c6cc762427efe08ac0bd0d1b1d12048d3ca727";
+					sha256 = "1hrl22dd0aaszdanhvddvqz3aq40jp9zi2zn0v1hjnf7fx4bgpma";
+				};
+			}
       {
-	name = "foreign-env";
-	src = pkgs.fetchFromGitHub {
-	  owner = "oh-my-fish";
-	  repo = "plugin-foreign-env";
-	  rev = "dddd9213272a0ab848d474d0cbde12ad034e65bc";
-	  sha256 = "00xqlyl3lffc5l0viin1nyp819wf81fncqyz87jx8ljjdhilmgbs";
-	};
+				name = "foreign-env";
+				src = pkgs.fetchFromGitHub {
+					owner = "oh-my-fish";
+					repo = "plugin-foreign-env";
+					rev = "dddd9213272a0ab848d474d0cbde12ad034e65bc";
+					sha256 = "00xqlyl3lffc5l0viin1nyp819wf81fncqyz87jx8ljjdhilmgbs";
+				};
       }
-      #{
-      #  name = "oh-my-fish";
-      #  src = pkgs.fetchFromGitHub {
-      #	  owner = "oh-my-fish";
-      #	  repo = "oh-my-fish";
-      #	  rev = "90f875e02dbb63a7e12430ceb034206bea278c28";
-      #    sha256 = "1h+5Lf9hwAepCKAmHFTkTBahQjRMB4UDdNlVRQWxUZc=";
-      #	};
-      #}
+			# {
+			# 	name = "oh-my-fish";
+			# 	src = pkgs.fetchFromGitHub {
+			# 		owner = "oh-my-fish";
+			# 		repo = "oh-my-fish";
+			# 		rev = "92a572d8cdfdf5b219269d59210b8a28f6cd6616";
+			# 		sha256 = "eCNVdVm33n8gizeYUGvVw0siQPsKKjaWn+adbyKwEYs=";
+			# 	};
+      # }
     ];
+		
   };
 
   # This value determines the Home Manager release that your
